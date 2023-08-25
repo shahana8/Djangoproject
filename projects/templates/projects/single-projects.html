@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!--<h1>single projects template</h1>-->
+<h2>{{obj.title}}</h2>
+<hr>
+{% for tag in obj.tags.all %}
+  <span style="border:1px dotted blue">{{tag}}</span>
+
+{% endfor %}
+<hr>
+<p>{{obj.description}}</p>
+
+{% endblock content %}
+
+
+
+</body>
+</html>

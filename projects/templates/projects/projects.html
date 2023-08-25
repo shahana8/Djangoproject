@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+
+<h1>projects template</h1>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>project</th>
+        <th>positivevotes</th>
+        <th>votes</th>
+    </tr>
+    {% for i in list %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.vote_ratio}}%</td>
+        <td>{{i.vote_total}}</td>
+        <td>{{i.created}}</td>
+        <td><a href="{% url 'project' i.id %}">view</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<!--<ul>-->
+<!--    {% for i in list %}-->
+<!--    <li><a href="{% url 'project' i.id %}">{{i.title}}</a> -> {{i.created}}</li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+{% endblock content %}
