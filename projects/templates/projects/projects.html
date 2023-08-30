@@ -8,18 +8,20 @@
 
 <table>
     <tr>
-        <th>id</th>
+<!--        <th>id</th>-->
         <th>project</th>
         <th>positivevotes</th>
         <th>votes</th>
     </tr>
     {% for i in list %}
     <tr>
-        <td>{{i.id}}</td>
+<!--        <td>{{i.id}}</td>-->
         <td>{{i.title}}</td>
         <td>{{i.vote_ratio}}%</td>
         <td>{{i.vote_total}}</td>
         <td>{{i.created}}</td>
+        <td><a href="{% url 'update-project' i.id %}">edit</a></td>
+        <td><a href="{% url 'delete-project' i.id %}">Delete</a></td>
         <td><a href="{% url 'project' i.id %}">view</a></td>
     </tr>
     {% endfor %}
