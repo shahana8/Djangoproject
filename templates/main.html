@@ -16,15 +16,50 @@
   <link rel="stylesheet" href="{% static 'styles/app.css' %}" />
 
   <title>DevSearch - Connect with Developers!</title>
+
+
 </head>
 <body>
 
 {% include 'navbar.html'%}
+
+<!--{% if messages %}-->
+<!--<ul class="messages">-->
+<!--  {% for message in messages %}-->
+<!--  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{message}}</li>-->
+<!--  {% endfor %}-->
+<!--</ul>-->
+<!--{% endif %}-->
+
+{% if messages %}
+
+{% for message in messages %}
+
+  <div class="alert alert--{{message.tags}}">
+    <p class="alert__message">{{message}}</p>
+    <button class="alert__close" onclick="showalert()">x</button>
+  </div>
+
+<!--<script>-->
+<!--    var el = document.querySelector('.alert__close');-->
+
+<!--        el.addEventListener('click', function () {-->
+<!--            var el2 = document.querySelector('.alert alert&#45;&#45;{{message.tags}}');-->
+<!--            el2.style.display = "none";-->
+<!--        });-->
+<!--</script>-->
+
+{% endfor %}
+
+{% endif %}
 
 {% block content %}
 
 
 {% endblock %}
 
+
+
 </body>
+<script src="{% static 'uikit/styles/app.js' %}"></script>
 </html>
