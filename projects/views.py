@@ -19,39 +19,46 @@ def projct(request, pk):
 
 @login_required(login_url="login")
 def createProject(request):
+    profile = request.user.profile
     form = projectForm()
+
 
     if request.method == 'POST':
         form = projectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            project = form.save(commit=False)
+            project.owner = profile
+            project.save()
             return redirect('projects')
+
         # print(request.POST)
     context = {'form':form}
     return render(request, 'projects/project_form.html', context)
 
 @login_required(login_url="login")
 def updateProject(request, pk):
-    projects = project.objects.get(id=pk)
+    profile = request.user.profile
+    projects = profile.project_set.get(id=pk)
     form = projectForm(instance=projects)
 
     if request.method == 'POST':
         form = projectForm(request.POST, request.FILES, instance=projects)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            return redirect('account')
 
     context = {'form':form}
     return render(request, 'projects/project_form.html', context)
 
 @login_required(login_url="login")
 def deleteProject(request, pk):
-    projects = project.objects.get(id=pk)
+    profile = request.user.profile
+    projects = profile.project_set.get(id=pk)
 
     if request.method == 'POST':
         projects.delete()
-        return redirect('projects')
+        return redirect('account')
     context = {'object':projects}
-    return render(request, 'projects/deleteTemplate.html', context)
+    return render(request, 'deleteTemplate.html', context)
 
 # Create your views here.
