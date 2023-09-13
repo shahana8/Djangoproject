@@ -16,11 +16,11 @@
         </div>
 
         <div class="hero-section__search">
-          <form class="form" action="#" method="get">
+          <form id="searchForm" class="form" action="{% url 'projects' %}" method="get">
             <div class="form__field">
               <label for="formInput#search">Search By Projects </label>
               <input class="input input--text" id="formInput#search" type="text" name="text"
-                placeholder="Search by Project Title" />
+                value="{{search}}" placeholder="Search by Project Title" />
             </div>
 
             <input class="btn btn--sub btn--lg" type="submit" value="Search" />
@@ -61,7 +61,30 @@
       </div>
     </section>
 
+<!--    {% if list.has_other_pages %}-->
+<!--    <div class="pagination">-->
+<!--      <ul class="container">-->
+<!--        {% if list.has_previous %}-->
+<!--          <li><a href="?page={{list.previous_page_number}}" class="btn page-link">&#10094; prev</a></li>-->
+<!--        {% endif %}-->
 
+<!--        {% for page in custom_page %}-->
+<!--        {% if page == list.number %}-->
+<!--          <li><a href="?page={{page}}" class="btn page-link btn&#45;&#45;sub">{{page}}</a></li>-->
+<!--        {% else %}-->
+<!--          <li><a href="?page={{page}}" class="btn page-link">{{page}}</a></li>-->
+<!--        {% endif %}-->
+<!--        {% endfor %}-->
+
+<!--        {% if list.has_next %}-->
+<!--          <li><a href="?page={{list.next_page_number}}" class="btn page-link">Next &#10095;</a></li>-->
+<!--        {% endif %}-->
+
+<!--      </ul>-->
+
+<!--    </div>-->
+<!--    {% endif %}-->
+  {% include 'pagination.html' with query_set=list custom_range=custom_range %}
   </main>
 
 <!--<ul>-->

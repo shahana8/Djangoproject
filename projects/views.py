@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
-from .models import project
+from django.db.models import Q
+from .models import project, Tag
 from .forms import projectForm
+from .utils import searchProjects, paginateProject
 
 
 def projects(request):
-    projects = project.objects.all()
-    context = {'list': projects}
+
+    projects, search = searchProjects(request)
+    custom_range, projects = paginateProject(request, projects, 6)
+
+
+    context = {'list': projects, 'search':search, 'custom_range':custom_range}
     return render(request, 'projects/projects.html', context)
 
 def projct(request, pk):
@@ -29,7 +34,7 @@ def createProject(request):
             project = form.save(commit=False)
             project.owner = profile
             project.save()
-            return redirect('projects')
+            return redirect('account')
 
         # print(request.POST)
     context = {'form':form}
@@ -60,5 +65,7 @@ def deleteProject(request, pk):
         return redirect('account')
     context = {'object':projects}
     return render(request, 'deleteTemplate.html', context)
+
+
 
 # Create your views here.
